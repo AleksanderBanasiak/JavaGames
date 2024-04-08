@@ -1,5 +1,7 @@
 package org.example.sudoku;
 
+import org.example.mainPanel.GamesManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,36 +10,29 @@ import static org.example.sudoku.SudokuGenerator.*;
 public class Sudoku {
 
     private final JSetupSudoku jSetupSudoku;
-    private JFrame jFrame;
-    private JLabel jLabel;
-    private JPanel jPanel;
+    private final JFrame jFrame;
+    private final JLabel jLabel;
+    private final JPanel jPanel;
     private JPanel boardPanel;
     private int[][] sudoku;
     private int[][] removedCells;
 
-
-
-
-
-
+    GamesManager gamesManager =new GamesManager();
 
     public Sudoku() {
         jSetupSudoku = new JSetupSudoku();
         jFrame = jSetupSudoku.jFrameSetup();
         jLabel = jSetupSudoku.jLabelSetup();
         jPanel = new JPanel(new BorderLayout());
-
         resetGame();
+        gamesManager.backToGames(jFrame, jPanel);
     }
 
 
     private void resetGame() {
-
         boardPanel = new JPanel(new GridLayout(3, 3));
-
         sudoku = generateSudoku();
         removedCells = removeSomeCells(sudoku);
-
         sudokuGame();
     }
     private void sudokuGame() {
@@ -75,6 +70,7 @@ public class Sudoku {
     private void game(int i, int j, JPanel blockPanel) {
         JButton button = jSetupSudoku.jButtonSetup();
         button.addKeyListener(new TileKeyListener(i, j, this));
+        TileMouseListener listener = new TileMouseListener(this);
         blockPanel.add(button);
 
         if (removedCells[i][j] != 0) {
@@ -82,8 +78,17 @@ public class Sudoku {
             button.setEnabled(false);
         }
         else {
-            button.addMouseListener(new TileMouseListener());
+            button.addMouseListener(listener);
         }
+    }
+    private JButton lastHighlightedButton;
+
+    public JButton getLastHighlightedButton() {
+        return lastHighlightedButton;
+    }
+
+    public void setLastHighlightedButton(JButton button) {
+        lastHighlightedButton = button;
     }
 
     private boolean isSudokuCompleted() {
@@ -115,25 +120,18 @@ public class Sudoku {
 
     private void checkSudoku() {
         jFrame.remove(boardPanel);
-
-
-
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (sudoku[i][j] != removedCells[i][j]) {
-                    JOptionPane.showMessageDialog(jFrame, "Rozwiązanie niepoprawne!");
+                    JOptionPane.showMessageDialog(jFrame, "Incorrect solution!");
                     return;
                 }
             }
         }
-        JOptionPane.showMessageDialog(jFrame, "Rozwiązanie poprawne!");
-
+        JOptionPane.showMessageDialog(jFrame, "Correct solution!");
         jFrame.revalidate();
         jFrame.repaint();
-
         resetGame();
-
-
     }
 
 

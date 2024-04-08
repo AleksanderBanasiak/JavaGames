@@ -5,23 +5,17 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static org.example.sudoku.SudokuGenerator.printSudoku;
-
 public class TileKeyListener extends KeyAdapter {
 
     private final Sudoku sudokuGame;
     private final int row;
     private final int col;
 
-
-
     public TileKeyListener(int row, int col, Sudoku sudokuGame) {
         this.row = row;
         this.col = col;
         this.sudokuGame = sudokuGame;
     }
-
-
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -37,9 +31,4 @@ public class TileKeyListener extends KeyAdapter {
             sudokuGame.updateSudoku(row, col, value);
         }
     }
-
-
-
-
-
 }

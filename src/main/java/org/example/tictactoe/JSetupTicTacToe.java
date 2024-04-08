@@ -1,40 +1,41 @@
-package org.example.sudoku;
+package org.example.tictactoe;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JSetupSudoku {
+public class JSetupTicTacToe {
 
-
-    protected JButton jButtonSetup(){
-        Dimension buttonSize = new Dimension(75, 75);
-        JButton button = new JButton();
-        button.setBackground(Color.darkGray);
-        button.setPreferredSize(buttonSize);
-        button.setFont(new Font("Arial", Font.BOLD, 35));
-        return button;
+    protected JButton tileSetup() {
+        JButton tile = new JButton();
+        tile.setBackground(Color.BLACK);
+        tile.setForeground(Color.white);
+        tile.setFont(new Font("Arial", Font.BOLD, 160));
+        tile.setFocusable(false);
+        return tile;
     }
 
     protected JLabel jLabelSetup() {
         JLabel jLabel = new JLabel();
         jLabel.setBackground(Color.BLACK);
         jLabel.setForeground(Color.white);
-        jLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        jLabel.setFont(new Font("Arial", Font.BOLD, 50));
         jLabel.setHorizontalAlignment(JLabel.CENTER);
-        jLabel.setText("Sudoku Game");
+        jLabel.setText("TicTacToe Game");
         jLabel.setOpaque(true);
         return jLabel;
     }
-
     protected JFrame jFrameSetup() {
-        JFrame jFrame = new JFrame("Sudoku");
+        JFrame jFrame = new JFrame("TicTacToe");
         jFrame.setVisible(true);
-        jFrame.setSize(700, 800);
+        jFrame.setSize(720, 800);
         jFrame.setLocationRelativeTo(null);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(new BorderLayout());
         return jFrame;
     }
+
+
+
 
 }

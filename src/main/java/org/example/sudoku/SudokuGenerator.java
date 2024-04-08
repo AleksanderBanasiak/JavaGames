@@ -6,10 +6,6 @@ public class SudokuGenerator {
     private static final int SIZE = 9;
     private static final int EMPTY = 0;
 
-    public SudokuGenerator() {
-
-    }
-
     public static int[][] removeSomeCells(int[][] board){
         Random random = new Random();
         int[][] newBoard = new int[9][9];
@@ -85,8 +81,7 @@ public class SudokuGenerator {
     }
 
     private static int[][] removeCells(int[][] board, Random random) {
-//        final int cellsToRemove = 45;
-        final int cellsToRemove = 1;
+        final int cellsToRemove = 45;
         for (int i = 0; i < cellsToRemove; i++) {
             int row = random.nextInt(SIZE);
             int col = random.nextInt(SIZE);
@@ -99,18 +94,4 @@ public class SudokuGenerator {
         return board;
     }
 
-    static void printSudoku(int[][] board) {
-        for (int i = 0; i < SIZE; i++) {
-            if (i % 3 == 0 && i != 0) {
-                System.out.println("---------------------");
-            }
-            for (int j = 0; j < SIZE; j++) {
-                if (j % 3 == 0 && j != 0) {
-                    System.out.print("| ");
-                }
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
 }

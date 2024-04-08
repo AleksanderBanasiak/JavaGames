@@ -1,10 +1,12 @@
 package org.example.tictactoe;
 
+import org.example.mainPanel.GamesManager;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class TicTacToe {
-    JSetup setup = new JSetup();
+    JSetupTicTacToe setup = new JSetupTicTacToe();
     TicTacToeGameVerification verification = new TicTacToeGameVerification();
     JFrame jFrame = setup.jFrameSetup();
     JLabel jLabel = setup.jLabelSetup();
@@ -18,6 +20,8 @@ public class TicTacToe {
     private static int turns = 9;
     private final JButton newGameButton =new JButton("New Game");
 
+    GamesManager gamesManager =new GamesManager();
+
     public TicTacToe() {
         jPanel.setLayout(new BorderLayout());
         jPanel.add(jLabel);
@@ -29,6 +33,7 @@ public class TicTacToe {
 
         boardSetup();
         setupNewGameButton();
+        gamesManager.backToGames(jFrame, jPanel);
     }
     private void boardSetup() {
         for (int i = 0; i < 3; i++) {
@@ -36,7 +41,6 @@ public class TicTacToe {
                 JButton tile = setup.tileSetup();
                 board[i][j] = tile;
                 boardPanel.add(tile);
-
                 game(tile);
             }
         }
@@ -66,7 +70,7 @@ public class TicTacToe {
                 jLabel.setText("Tie!");
                 newGameButton.setVisible(true);
             }else {
-                jLabel.setText("      "+player+ " wins!");
+                jLabel.setText("   "+player+ " wins!");
                 newGameButton.setVisible(true);
             }
         }
